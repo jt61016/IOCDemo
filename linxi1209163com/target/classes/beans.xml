@@ -3,12 +3,13 @@
 <beans>
 
     <bean name="girl" className="com.jt61016.ioc.linxi1209163com.test.Girl">
-            <property name="name" value="fangyuan"></property>
-            <property name="age" value="18"></property>
+        <property name="name" value="fangyuan"></property>
+        <property name="age" value="18"></property>
     </bean>
 
     <bean name="gentleman" className="com.jt61016.ioc.linxi1209163com.test.Gentleman">
-            <property name="name" value="me"></property>
-            <property name="age" value="26"></property>
+        <property name="name" value="me"></property>
+        <property name="age" value="26"></property>
+        <property name = "girlFriend" ref="girl"></property>
     </bean>
 </beans>

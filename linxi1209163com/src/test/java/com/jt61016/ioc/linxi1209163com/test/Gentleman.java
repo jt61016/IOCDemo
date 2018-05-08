@@ -12,8 +12,9 @@ import lombok.NoArgsConstructor;
 public class Gentleman {
     private String name;
     private String age;
+    private Girl girlFriend;
 
     public String toString() {
-        return name  + " : " + age;
+        return name  + " : " + age + ", girl friend is : " + girlFriend;
     }
 }
