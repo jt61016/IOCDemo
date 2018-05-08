@@ -2,6 +2,7 @@ package com.jt61016.ioc.linxi1209163com;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,9 +62,14 @@ public class ClassPathXmlApplicationContext implements BeanFactory {
 
                 Method setMethod = BeanUtils.getWriteMethod(beanObj, name);
                 Object param = null;
+                Type[] types = setMethod.getGenericParameterTypes();
                 if (null != property.getValue()) {
                     String value = property.getValue();
-                    param = value;
+                    if ("int".equals(types[0].getTypeName()) || "java.lang.Integer".equals(types[0].getTypeName())) {
+                        param = Integer.parseInt(value);
+                    } else {
+                        param = value;
+                    }
                 }
                 if (null != property.getRef()) {
                     Object exsitBean = context.get(property.getRef());

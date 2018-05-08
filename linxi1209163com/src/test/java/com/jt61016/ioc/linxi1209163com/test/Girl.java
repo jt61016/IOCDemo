@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Girl {
     private String name;
-    private String age;
+    private Integer age;
 
     public String toString() {
         return name  + " : " + age;
