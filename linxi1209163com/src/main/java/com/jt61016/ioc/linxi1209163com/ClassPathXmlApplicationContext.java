@@ -11,7 +11,9 @@ import java.util.Map;
  * @Date 2018/5/7 下午4:08.
  */
 public class ClassPathXmlApplicationContext implements BeanFactory {
+    //从XML处读取的配置信息
     private Map<String, Bean> config;
+    //bean容器,放置所管理的对象
     private Map<String, Object> context = new HashMap<String, Object>();
 
     public Object getBean(String beanName) {
