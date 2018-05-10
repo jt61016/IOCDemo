@@ -12,6 +12,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Order {
-    private Long id;
-    private String title;
+    private Long id = 0L;
+    private String title = "Test";
+
+    public String toString() {
+        return id + " : " + title;
+    }
 }

@@ -1,5 +1,6 @@
 package com.jt61016.ioc.blog158992.test;
 
+import com.jt61016.ioc.blog158992.BeanHelper;
 import com.jt61016.ioc.blog158992.annotation.MyBean;
 import com.jt61016.ioc.blog158992.annotation.MyInject;
 
@@ -16,4 +17,14 @@ public class OrderService {
         return order;
     }
 
+    public String toString() {
+        return "Service : " + order;
+    }
+
+    public static void main(String[] args) {
+        System.out.println("------------------start");
+        OrderService bean = BeanHelper.getBean(OrderService.class);
+        System.out.println(bean);
+        System.out.println("------------------end");
+    }
 }
