@@ -28,7 +28,7 @@ public class BeanHelper {
                 Object beanInstance = beanEntry.getValue();
 
                 Field[] beanFields = beanClass.getDeclaredFields();
-                if (null != beanFields && 0 > beanFields.length) {
+                if (null != beanFields && 0 < beanFields.length) {
                     for (Field beanField : beanFields) {
                         if (beanField.isAnnotationPresent(MyInject.class)) {
                             Class<?> interfaceClass = beanField.getType();

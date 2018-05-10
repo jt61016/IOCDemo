@@ -19,7 +19,7 @@ import java.util.jar.JarFile;
 public class ClassHelper {
     private static final List<Class<?>> allClasses = new ArrayList<Class<?>>();
     private static final List<Class<?>> classesWithMyBeanAnnotaion = new ArrayList<Class<?>>();
-    private static final String packageName = "com/jt61016/ioc/blog158992";
+    private static final String packageName = "com.jt61016.ioc.blog158992";
 
     static {
         try {
