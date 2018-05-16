@@ -1,6 +1,7 @@
 package com.jt61016.ioc.blog158992;
 
 import com.jt61016.ioc.blog158992.annotation.MyBean;
+import com.jt61016.ioc.blog158992.annotation.MyImpl;
 import com.jt61016.ioc.blog158992.annotation.MyInject;
 
 import java.lang.reflect.Field;
@@ -32,9 +33,16 @@ public class BeanHelper {
                     for (Field beanField : beanFields) {
                         if (beanField.isAnnotationPresent(MyInject.class)) {
                             Class<?> interfaceClass = beanField.getType();
-                            List<Class<?>> implementClassList = ClassHelper.getClassListByInterface(interfaceClass);
-                            if (null != implementClassList && !implementClassList.isEmpty()) {
-                                Class<?> implementClass = implementClassList.get(0);
+                            Class<?> implementClass = null;
+                            if (interfaceClass.isAnnotationPresent(MyImpl.class)) {
+                                implementClass = interfaceClass.getAnnotation(MyImpl.class).value();
+                            } else {
+                                List<Class<?>> implementClassList = ClassHelper.getClassListByInterface(interfaceClass);
+                                if (null != implementClassList && !implementClassList.isEmpty()) {
+                                    implementClass = implementClassList.get(0);
+                                }
+                            }
+                            if (null != implementClass) {
                                 Object implementInstance = beanMap.get(implementClass);
                                 beanField.setAccessible(true);
                                 beanField.set(beanInstance, implementInstance);
