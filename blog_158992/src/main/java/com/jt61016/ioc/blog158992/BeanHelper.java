@@ -1,10 +1,6 @@
 package com.jt61016.ioc.blog158992;
 
 import com.jt61016.ioc.blog158992.annotation.MyBean;
-import com.jt61016.ioc.blog158992.annotation.MyImpl;
-import com.jt61016.ioc.blog158992.annotation.MyInject;
-
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +10,7 @@ import java.util.Map;
  * @Date 2018/5/9 下午7:51.
  */
 public class BeanHelper {
+    //存放bean的容器
     private static final Map<Class<?>, Object> beanMap = new HashMap<Class<?>, Object>();
 
     static {
@@ -22,38 +19,11 @@ public class BeanHelper {
             for (Class<?> beanClass : beanClassList) {
                 Object beanInstance = beanClass.newInstance();
                 beanMap.put(beanClass, beanInstance);
+                System.out.println("装载bean : " + beanClass.getName());
             }
-
-            for (Map.Entry<Class<?>, Object> beanEntry : beanMap.entrySet()) {
-                Class<?> beanClass = beanEntry.getKey();
-                Object beanInstance = beanEntry.getValue();
-
-                Field[] beanFields = beanClass.getDeclaredFields();
-                if (null != beanFields && 0 < beanFields.length) {
-                    for (Field beanField : beanFields) {
-                        if (beanField.isAnnotationPresent(MyInject.class)) {
-                            Class<?> interfaceClass = beanField.getType();
-                            Class<?> implementClass = null;
-                            if (interfaceClass.isAnnotationPresent(MyImpl.class)) {
-                                implementClass = interfaceClass.getAnnotation(MyImpl.class).value();
-                            } else {
-                                List<Class<?>> implementClassList = ClassHelper.getClassListByInterface(interfaceClass);
-                                if (null != implementClassList && !implementClassList.isEmpty()) {
-                                    implementClass = implementClassList.get(0);
-                                }
-                            }
-                            if (null != implementClass) {
-                                Object implementInstance = beanMap.get(implementClass);
-                                beanField.setAccessible(true);
-                                beanField.set(beanInstance, implementInstance);
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+            //这里需要保证IOCHelper的调用是在BeanHelper初始化beanMap之后
+            IOCHelper.init();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -20,29 +20,4 @@ public class Order {
         return "[" + id + "] - " + title;
     }
 
-    /**
-     * @Author jiangtao
-     * @Date 2018/5/16 下午2:02.
-     */
-    @MyBean
-    public static class OrderController {
-        @MyInject
-        OrderService orderService;
-
-        public void createOrder() {
-            String id = orderService.createOrder();
-            System.out.println("create a order : " + id);
-        }
-
-        public void printOrder() {
-            System.out.println(orderService.printOrder());
-        }
-
-        public static void main(String[] args) {
-            OrderController controller = BeanHelper.getBean(OrderController.class);
-            controller.createOrder();
-            System.out.println("=======================");
-            controller.printOrder();
-        }
-    }
 }
